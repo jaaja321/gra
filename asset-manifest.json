@@ -1,0 +1,13 @@
+{
+  "files": {
+    "main.css": "/gra/static/css/main.58e66fbf.css",
+    "main.js": "/gra/static/js/main.2a803108.js",
+    "index.html": "/gra/index.html",
+    "main.58e66fbf.css.map": "/gra/static/css/main.58e66fbf.css.map",
+    "main.2a803108.js.map": "/gra/static/js/main.2a803108.js.map"
+  },
+  "entrypoints": [
+    "static/css/main.58e66fbf.css",
+    "static/js/main.2a803108.js"
+  ]
+}
