@@ -1,7 +1,10 @@
-import React, { Component, useState } from 'react';
+import React, { Component, useEffect, useState } from 'react';
 import { FaChevronLeft } from "react-icons/fa";
+import emailjs from '@emailjs/browser'
 
 export default function Offer(props) {
+  let [b,setB] = useState(0)
+  let [but,setBut] = useState('Отправить заказ')
     let [selc, setSelc] = useState(false)
     let [selo, setSelo] = useState(false)
     let [ot, setOt] = useState([])
@@ -15,7 +18,6 @@ export default function Offer(props) {
     let choo = (el) => {
         document.getElementById('area').value = el
         setSelo(false)
-        ciO()
     }
     let ciC = async () => {
         let areas = []
@@ -58,49 +60,6 @@ export default function Offer(props) {
             })
             setOt(areas)
     }
-    let ciO = () => {
-        const apiKey = 'e82455e21016d4e21bcf2eb64165b6aa';
-        const apiUrl = 'https://api.novaposhta.ua/v2.0/json/';
-        let area = document.getElementById('area').value
-        const areaName = area; // Замените на конкретное название области
-        
-        const requestParams = {
-          apiKey: apiKey,
-          modelName: 'AddressGeneral',
-          calledMethod: 'getWarehouses',
-          methodProperties: {
-            Language: 'ru', // Вы можете использовать 'ru' или 'ua' в зависимости от языка, на котором хотите получить результаты
-            CityName: '', // Пустое значение для получения всех отделений в области
-            SettlementType: 'область', // Или 'село', 'деревня', и так далее, в зависимости от типа населенного пункта
-            Area: areaName,
-          },
-        };
-        
-        fetch(apiUrl, {
-          method: 'POST',
-          headers: {
-            'Content-Type': 'application/json',
-          },
-          body: JSON.stringify(requestParams),
-        })
-          .then(response => response.json())
-          .then(data => {
-            if (data.success) {
-              const warehouses = data.data;
-              
-              // Перебор полученного списка отделений
-              warehouses.forEach(warehouse => {
-                console.log('Отделение:', warehouse.Description);
-                // Здесь вы можете делать что-то с каждым отделением
-              });
-            } else {
-              console.error('Ошибка при запросе к API:', data.errors);
-            }
-          })
-          .catch(error => {
-            console.error('Ошибка при выполнении запроса:', error);
-          });
-    }
     let check = () => {
       let res = true
         for (let i of inp){
@@ -118,7 +77,9 @@ export default function Offer(props) {
             document.getElementById('yes').classList.remove('scale-[1.5]')
         }
         if (res){
+          send()
         }
+        console.log(b)
     }
     const cities = [
         "Киев",
@@ -142,6 +103,53 @@ export default function Offer(props) {
         "Луцк",
         "Ужгород"
       ]
+    let send = () => {
+      var templateParams = {
+        pnum: document.getElementById('pnum').value,
+        name: document.getElementById('name').value,
+        sourname: document.getElementById('sourname').value,
+        city: document.getElementById('city').value,
+        area: document.getElementById('area').value,
+        nnum: document.getElementById('nnum').value,
+    };
+     
+    emailjs.send('service_shmj5jd', 'template_hhsdgjs', templateParams,'JhbnlFkCmHseIbKJO')
+        .then(function(response) {
+           console.log('SUCCESS!', response.status, response.text);
+           setB(1)
+           console.log(b)
+        }, function(error) {
+           console.log('FAILED...', error);
+           setB(0)
+           console.log(b)
+        });
+        butt()
+    //emailjs.send('service_shmj5jd', 'template_hhsdgjs', 'wqe','JhbnlFkCmHseIbKJO')
+    }
+    let butt = () => {
+      console.log(props.langP)
+      if (props.langP === 'ru' && b === 0){
+        setBut('Отправить заказ')
+      }
+      if (props.langP === 'ru' && b === 1){
+        setBut('Заказ получен')
+      }
+      if (props.langP === 'ru' && b === 2){
+        setBut('Произошла ошибка')
+      }
+      if (props.langP === 'ua' && b === 0){
+        setBut('Відправити замовлення')
+      }
+      if (props.langP === 'ua' && b === 1){
+        setBut('Замовлення отримано')
+      }
+      if (props.langP === 'ua' && b === 2){
+        setBut('Виникла помилка')
+      }
+    }
+    useEffect(() => (
+      butt()
+    ))
     return(
         <div className='fixed top-[0%] left-[0%] h-[100vh] w-[100%] bg-white flex flex-col sm:flex-row overflow-y-auto'>
             <div onClick={() => props.Show()} className='fixed left-2 top-1 border border-black scale-[1.2]'><FaChevronLeft /></div>
@@ -170,10 +178,10 @@ export default function Offer(props) {
                     <p className='mr-1'>Всё написано правильно</p>
                     <input type='checkbox' id='yes' className=' duration-300'></input>
                 </div>
-                <div onClick={() => check()} className='cursor-pointer border border-black rounded-lg w-[40%] text-center mx-auto'>Отправить заказ</div>
+                <button disabled={b !== 0} onClick={() => check()} className='cursor-pointer border border-black rounded-lg w-[40%] text-center mx-auto'>{but}</button>
             </div>
             </div>
-            <div className='w-full h-[20vh] overflow-y-auto border-t border-black sm:border-t sm:border-white'>
+            <div className='w-full overflow-y-auto border-t border-black sm:border-t sm:border-white'>
                 <p className='text-center'>Ваши товары</p>
                 <div className='flex-wrap flex justify-center'>
                     {props.curitems.map(el => (
