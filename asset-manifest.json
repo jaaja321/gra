@@ -1,13 +1,13 @@
 {
   "files": {
-    "main.css": "/gra/static/css/main.a50b1e7a.css",
-    "main.js": "/gra/static/js/main.9a699d2f.js",
+    "main.css": "/gra/static/css/main.f918381b.css",
+    "main.js": "/gra/static/js/main.2e03d0c7.js",
     "index.html": "/gra/index.html",
-    "main.a50b1e7a.css.map": "/gra/static/css/main.a50b1e7a.css.map",
-    "main.9a699d2f.js.map": "/gra/static/js/main.9a699d2f.js.map"
+    "main.f918381b.css.map": "/gra/static/css/main.f918381b.css.map",
+    "main.2e03d0c7.js.map": "/gra/static/js/main.2e03d0c7.js.map"
   },
   "entrypoints": [
-    "static/css/main.a50b1e7a.css",
-    "static/js/main.9a699d2f.js"
+    "static/css/main.f918381b.css",
+    "static/js/main.2e03d0c7.js"
   ]
 }
