@@ -71,10 +71,10 @@ export default function Info(props) {
     <div className='fixed overflow-auto z-[9000000] top-0 left-0 w-full h-full backdrop-blur-sm'>
     <div className='fixed z-[90] px-2 left-[5%] top-[8%] w-[90%] border border-black bg-white'>
         <div className='py-2 flex' id={`info-b`}>
-        <div className='absolute right-2 p-4 border border-black rounded-lg hover:bg-gray-800 transition-all' id='but'><IoMdClose onClick={() => props.info()} className='scale-[2]'/></div>
-        <div className='flex z-[99090990]' id='info-img'>
+        <div className='absolute z-[9999] right-2 p-4 border border-black rounded-lg hover:bg-gray-800 transition-all' id='but'><IoMdClose onClick={() => props.info()} className='scale-[2]'/></div>
+        <div className='flex justify-center z-[999] mx-auto' id='info-img'>
           <div onClick={() => scr(0)} className='my-auto scale-[1.5] hover:scale-[2] duration-150 transition-all'><FaChevronLeft/></div>
-          <img className='my-auto select-none' src={props.item.img[im]}></img>
+          <img className='block max-w-[100%] min-h-[30vh] min-w-[30vh] my-auto select-none' src={props.item.img[im]}></img>
           <div onClick={() => scr(1)} className='my-auto scale-[1.5] hover:scale-[2] duration-150 transition-all'><FaChevronRight/></div>
         </div>
         <div className='flex flex-col justify-center w-[100%]'>
