@@ -173,7 +173,7 @@ export default function Offer(props) {
                 <div onClick={() => check()} className='cursor-pointer border border-black rounded-lg w-[40%] text-center mx-auto'>Отправить заказ</div>
             </div>
             </div>
-            <div className='w-full overflow-y-auto border-t border-black sm:border-t sm:border-white'>
+            <div className='w-full h-[20vh] overflow-y-auto border-t border-black sm:border-t sm:border-white'>
                 <p className='text-center'>Ваши товары</p>
                 <div className='flex-wrap flex justify-center'>
                     {props.curitems.map(el => (

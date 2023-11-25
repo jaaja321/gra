@@ -29,10 +29,10 @@
 }
 @media (max-width: 600px) or (max-height: 600px){
     * {
-      font-size: 99%;
+      font-size: 98%;
     }
     #but-h,#but-hn{
-      padding: 14px;
+      padding: 10px;
     }
     #but-h {
       padding: 8px;
@@ -46,7 +46,7 @@
     padding: 6px;
   }
   #but-hn{
-    padding: 10px;
+    padding: 2px;
   }
   #header{
     height: 16vh;
@@ -65,5 +65,10 @@
   }
   #n{
     height: 90vh;
+  }
+}
+@media (max-width: 400px) or (max-height: 400px){
+  * {
+    font-size: 96%;
   }
 }

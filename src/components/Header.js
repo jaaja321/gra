@@ -43,11 +43,11 @@ export default function Header(props) {
   return (
     <div className={`fixed z-[1001] ${cartshow && 'top-[-10%]'}`}>
       <div className={`z-[100000] ${props.open ? 'lg:w-[80%] md:w-[80%] md:left-[20%] lg:left-[20%] left-[15%]' : 'lg:w-[94%] md:w-[90%] lg:left-[6%] md:left-[10%] left-[0%] w-screen'} fixed right-0 top-[-100%] w-[80%] opacity-0 bg-white ${cartshow && 'top-[0%] opacity-100'} transition-all`}>
-        <div onClick={() => cartpress()} className='absolute left-[1%] top-[1%] p-4 border border-black rounded-lg hover:bg-gray-800 transition-all' id='but-h'><HiArrowUp className='scale-[2]'/></div>
+        <div onClick={() => cartpress()} className='absolute top-[1%] p-4 border border-black rounded-lg hover:bg-gray-800 transition-all' id='but-h'><HiArrowUp className='scale-[2]'/></div>
           <Cart lang={props.lang} addItem={props.addItem} curitems={props.curitems} delitem={props.delitem} className={`z-[70] mx-12 bg-white`}/>
       </div>
     <div className={`z-10 fixed top-0 ${props.open ? 'lg:w-[80%] md:w-[80%] lg:left-[20%] md:left-[20%] left-[100%]' : 'lg:w-[94%] md:w-[90%] lg:left-[6%] md:left-[10%] left-[15%]'} h-[10vh] bg-white right-0 flex justify-between border-b border-black ${cartshow && 'top-[-10%]'} transition-all`} id='header'>
-      <div onClick={() => cartpress()} className={`p-3 ml-4 my-auto font-bold flex border border-black rounded-lg hover:bg-gray-800 transition-all`} id='but-h'>
+      <div onClick={() => cartpress()} className={`p-3 ml-[1%] my-auto font-bold flex border border-black rounded-lg hover:bg-gray-800 transition-all`} id='but-h'>
         <RiShoppingBasket2Fill className='my-auto mr-2 mx-1 scale-[2]'/>
         <span className={`opacity-0 w-0 lg:opacity-100 lg:w-full`}>{props.langP == 'ru' ? 'Корзина' : 'Кошик'}</span>
         <p className='font-bold relative'>({props.curitems.length})</p>
