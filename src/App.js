@@ -35,6 +35,7 @@ export class App extends Component {
     this.setOpen = this.setOpen.bind(this)
     this.setCat = this.setCat.bind(this)
     this.setLang = this.setLang.bind(this)
+    this.ammo = this.ammo.bind(this)
   }
   render() {
     return (
@@ -44,6 +45,19 @@ export class App extends Component {
         <Main langP={this.state.langP} fil={this.state.fil} allCheck={this.allCheck} y={this.state.y} setCat={this.setCat} allcat={this.state.allcat} colors={this.state.colors} curcol={this.state.curcol} curitems={this.state.curitems} curcat={this.state.curcat} open={this.state.open} addItem={this.addItem} items = {this.state.items} lang={this.state.lang} search={this.state.search}/>
       </div>
     )
+  }
+
+  ammo(par,item){
+    this.state.curitems.map(el => {
+      if (el === item){
+        if (par === '+'){
+          el.cout += 1
+        }
+        if (par === '-'){
+          el.cout -= 1
+        }
+      }
+    })
   }
 
   setCat(cat){

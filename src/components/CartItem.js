@@ -2,7 +2,7 @@ import React, { useState } from 'react'
 import Info from './Info'
 import {IoMdClose} from 'react-icons/io'
 import {AiOutlineInfo} from 'react-icons/ai'
-
+import { FaPlus,FaMinus } from "react-icons/fa";
 function CartItem(props) {
     let [show, setShow] = useState(false)
 
@@ -22,6 +22,11 @@ function CartItem(props) {
         <div className='m-auto flex flex-col justify-center text-center'>
             
             <p className='mx-auto font-bold'>{props.item.price}$</p>
+        </div>
+        <div className='my-auto mr-2'>
+            <div onClick={() => props.ammo('+',props.item)} className='m-1 p-3 border border-black rounded-lg hover:bg-gray-800 transition-all'><FaPlus className='scale-[1.5]'/></div>
+            <p>{props.item.cout}</p>
+            <div onClick={() => props.ammo('-',props.item)} className='m-1 p-3 border border-black rounded-lg hover:bg-gray-800 transition-all'><FaMinus className='scale-[1.5]'/></div>
         </div>
         <div className='my-auto mr-2'>
             <div onClick={() => props.delitem(props.item)} className='m-1 p-3 border border-black rounded-lg hover:bg-gray-800 transition-all'><IoMdClose className='scale-[2]'/></div>
