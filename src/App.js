@@ -40,7 +40,7 @@ export class App extends Component {
   render() {
     return (
       <div className='text-red-400'>
-        <Header setLang={this.setLang} lang={this.state.lang} langP={this.state.langP} setOpen={this.setOpen} delitem={this.delitem} open={this.state.open} curitems={this.state.curitems} curcol={this.state.curcol} search={this.search} curstate={this.state.curstate} curcat={this.state.curcat} addItem={this.addItem}/>
+        <Header ammo={this.ammo} setLang={this.setLang} lang={this.state.lang} langP={this.state.langP} setOpen={this.setOpen} delitem={this.delitem} open={this.state.open} curitems={this.state.curitems} curcol={this.state.curcol} search={this.search} curstate={this.state.curstate} curcat={this.state.curcat} addItem={this.addItem}/>
         <Nav langP={this.state.langP} fil={this.state.fil} allcat={this.state.allcat} colors={this.state.colors} allCheck={this.allCheck} curcol={this.state.curcol} colCheck={this.colCheck} setOpen={this.setOpen} open={this.state.open} itemsCat={this.state.itemsCat} curcat={this.state.curcat} items={this.state.items} categories={this.state.categories} ru={this.state.ru}/>
         <Main langP={this.state.langP} fil={this.state.fil} allCheck={this.allCheck} y={this.state.y} setCat={this.setCat} allcat={this.state.allcat} colors={this.state.colors} curcol={this.state.curcol} curitems={this.state.curitems} curcat={this.state.curcat} open={this.state.open} addItem={this.addItem} items = {this.state.items} lang={this.state.lang} search={this.state.search}/>
       </div>
@@ -48,15 +48,15 @@ export class App extends Component {
   }
 
   ammo(par,item){
-    this.state.curitems.map(el => {
-      if (el === item){
-        if (par === '+'){
-          el.cout += 1
+    console.log(par)
+    this.setState(prestate => {
+      let curi = prestate.curitems.map(el => {
+        if (el === item){
+          return {...el, cout: el.cout + (par === '+' ? 1 : -1)}
         }
-        if (par === '-'){
-          el.cout -= 1
-        }
-      }
+        return el
+      })
+      return {curitems: curi}
     })
   }
 

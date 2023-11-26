@@ -147,13 +147,20 @@ export default function Offer(props) {
         setBut('Виникла помилка')
       }
     }
+    let total = () => {
+      let res = 0
+      props.curitems.map(el => {
+        res += parseInt(el.price) * el.cout
+      })
+      return res
+    }
     useEffect(() => (
       butt()
     ))
     return(
-        <div className='fixed top-[0%] left-[0%] h-[100vh] w-[100%] bg-white flex flex-col sm:flex-row overflow-y-auto'>
-            <div onClick={() => props.Show()} className='fixed left-2 top-1 border border-black scale-[1.2]'><FaChevronLeft /></div>
-            <div className='w-[100%] overflow-y-auto h-[80vh]'>
+        <div className='fixed top-[0%] h-screen left-[0%] w-[100%] bg-white flex flex-col sm:flex-row overflow-y-auto'>
+            <div onClick={() => props.Show()} className='absolute left-2 top-1 border border-black scale-[1.2]'><FaChevronLeft /></div>
+            <div className='w-[100%] h-[60vh] sm:h-full overflow-y-auto'>
             <div className='px-2 flex flex-col'>
                 <p className='text-center mb-1'>Форма доставки</p>
                 <input onClick={() => setSelc(!selc)} placeholder='Город' className='border border-black' id='city'></input>
@@ -174,20 +181,24 @@ export default function Offer(props) {
                 <input placeholder='Номер телефона' className='border border-black mt-1' id='pnum'></input>
                 <input placeholder='Имя' className='border border-black mt-2' id='name'></input>
                 <input placeholder='Фамилия' className='border border-black mt-2' id='sourname'></input>
-                <div className='flex mx-auto my-2'>
+                <div className='flex mx-auto mt-2'>
                     <p className='mr-1'>Всё написано правильно</p>
                     <input type='checkbox' id='yes' className=' duration-300'></input>
                 </div>
+                <p className='text-center mb-1'>Общая цена без доставки: {total()}₴</p>
                 <button disabled={b !== 0} onClick={() => check()} className='cursor-pointer border border-black rounded-lg w-[40%] text-center mx-auto'>{but}</button>
             </div>
             </div>
             <div className='w-full overflow-y-auto border-t border-black sm:border-t sm:border-white'>
                 <p className='text-center'>Ваши товары</p>
-                <div className='flex-wrap flex justify-center'>
+                <div className='flex-wrap flex justify-center overflow-y-auto'>
                     {props.curitems.map(el => (
                         <div className='m-1 w-[30%] border border-black rounded-lg overflow-hidden'>
                             <img src={el.img[0]}></img>
-                            <p className='text-center'>{el.price} UAH</p>
+                            <div className='flex flex-col text-center'>
+                            {el.cout <= 1 ? null : <p className=''>{el.cout}X</p>}
+                            <p className='text-center my-auto'>{el.price}₴</p>
+                            </div>
                         </div>
                     ))}
                 </div>
