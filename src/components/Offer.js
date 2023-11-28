@@ -162,6 +162,10 @@ export default function Offer(props) {
             <div onClick={() => props.Show()} className='absolute left-2 top-1 border border-black scale-[1.2]'><FaChevronLeft /></div>
             <div className='w-[100%] h-[60vh] sm:h-full overflow-y-auto'>
             <div className='px-2 flex flex-col'>
+                <p className='text-center mt-1'>Ваши контактные данные</p>
+                <input placeholder='Номер телефона' className='border border-black mt-1' id='pnum'></input>
+                <input placeholder='Имя' className='border border-black mt-2' id='name'></input>
+                <input placeholder='Фамилия' className='border border-black mt-2' id='sourname'></input>
                 <p className='text-center mb-1'>Форма доставки</p>
                 <input onClick={() => setSelc(!selc)} placeholder='Город' className='border border-black' id='city'></input>
                 {selc && <ul className='flex flex-col h-20 sm:h-40 overflow-y-auto'>
@@ -177,10 +181,6 @@ export default function Offer(props) {
                 </ul>}
                 <input placeholder='Номер отделения' className='border border-black mt-2' id='nnum'></input>
                 <hr></hr>
-                <p className='text-center mt-1'>Ваши контактные данные</p>
-                <input placeholder='Номер телефона' className='border border-black mt-1' id='pnum'></input>
-                <input placeholder='Имя' className='border border-black mt-2' id='name'></input>
-                <input placeholder='Фамилия' className='border border-black mt-2' id='sourname'></input>
                 <div className='flex mx-auto mt-2'>
                     <p className='mr-1'>Всё написано правильно</p>
                     <input type='checkbox' id='yes' className=' duration-300'></input>

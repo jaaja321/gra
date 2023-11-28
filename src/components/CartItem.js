@@ -26,7 +26,7 @@ function CartItem(props) {
         <div className='my-auto mr-2'>
             <div onClick={() => props.ammo('+',props.item)} className='m-1 p-3 border border-black rounded-lg hover:bg-gray-800 transition-all'><FaPlus className='scale-[1.5]'/></div>
             <p>{props.item.cout}</p>
-            <button onClick={() => props.ammo('-',props.item)} disabled={props.item.cout === 0} className='m-1 p-3 border border-black rounded-lg hover:bg-gray-800 transition-all'><FaMinus className='scale-[1.5]'/></button>
+            <button onClick={() => props.ammo('-',props.item)} disabled={props.item.cout === 1} className='m-1 p-3 border border-black rounded-lg hover:bg-gray-800 transition-all'><FaMinus className='scale-[1.5]'/></button>
         </div>
         <div className='my-auto mr-2'>
             <div onClick={() => props.delitem(props.item)} className='m-1 p-3 border border-black rounded-lg hover:bg-gray-800 transition-all'><IoMdClose className='scale-[2]'/></div>

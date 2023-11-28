@@ -58,6 +58,7 @@ export class App extends Component {
       })
       return {curitems: curi}
     })
+    console.log(this.state.curitems)
   }
 
   setCat(cat){
@@ -162,7 +163,7 @@ export class App extends Component {
   delitem(item){
     item.selected = false
     this.state.curitems.forEach(el => {
-      if (el === item){
+      if (el.id === item && el.col === item && el.title === item && el.cout === item){
         item.selected = false
       }
     })
@@ -170,6 +171,7 @@ export class App extends Component {
       el !== item
     ))]
     this.setState({curitems: arr})
+    console.log(arr)
   }
 
   setOpen(){
