@@ -1,6 +1,6 @@
 import './main.css';
 import './style.css';
-import { list,col,colua,Ru,Ua,catru,catua } from './list.js';
+import { list,col,colua,Ru,Ua,catru,catua,statesl,stateslua } from './list.js';
 import React, { Component } from 'react';
 import Header from './components/Header';
 import Main from './components/Main';
@@ -16,8 +16,8 @@ export class App extends Component {
       allcat: catru,
       open: false,
       fil: [],
-      curcat: 'allC',
-      curstate: 'allG',
+      curcat: '',
+      curstate: '',
       curcol: '',
       sex: '',
       itemsCat: list,
@@ -25,6 +25,7 @@ export class App extends Component {
       itemsAll: list,
       curitems: [],
       colors: col,
+      states: statesl,
       search: '',
       y: false
     }
@@ -41,7 +42,7 @@ export class App extends Component {
     return (
       <div className='text-red-400'>
         <Header ammo={this.ammo} setLang={this.setLang} lang={this.state.lang} langP={this.state.langP} setOpen={this.setOpen} delitem={this.delitem} open={this.state.open} curitems={this.state.curitems} curcol={this.state.curcol} search={this.search} curstate={this.state.curstate} curcat={this.state.curcat} addItem={this.addItem}/>
-        <Nav langP={this.state.langP} fil={this.state.fil} allcat={this.state.allcat} colors={this.state.colors} allCheck={this.allCheck} curcol={this.state.curcol} colCheck={this.colCheck} setOpen={this.setOpen} open={this.state.open} itemsCat={this.state.itemsCat} curcat={this.state.curcat} items={this.state.items} categories={this.state.categories} ru={this.state.ru}/>
+        <Nav states={this.state.states} langP={this.state.langP} fil={this.state.fil} allcat={this.state.allcat} colors={this.state.colors} allCheck={this.allCheck} curcol={this.state.curcol} colCheck={this.colCheck} setOpen={this.setOpen} open={this.state.open} itemsCat={this.state.itemsCat} curcat={this.state.curcat} items={this.state.items} categories={this.state.categories} ru={this.state.ru}/>
         <Main langP={this.state.langP} fil={this.state.fil} allCheck={this.allCheck} y={this.state.y} setCat={this.setCat} allcat={this.state.allcat} colors={this.state.colors} curcol={this.state.curcol} curitems={this.state.curitems} curcat={this.state.curcat} open={this.state.open} addItem={this.addItem} items = {this.state.items} lang={this.state.lang} search={this.state.search}/>
       </div>
     )
@@ -49,16 +50,13 @@ export class App extends Component {
 
   ammo(par,item){
     console.log(par)
-    this.setState(prestate => {
-      let curi = prestate.curitems.map(el => {
-        if (el === item){
-          return {...el, cout: el.cout + (par === '+' ? 1 : -1)}
-        }
-        return el
-      })
-      return {curitems: curi}
+    let arr = this.state.curitems.map(el => {
+      if (el.idu === item.idu){
+        return {...el,cout: el.cout + (par === '+' ? 1 : -1)}
+      }
+      return el
     })
-    console.log(this.state.curitems)
+    this.setState({curitems: arr})
   }
 
   setCat(cat){
@@ -68,14 +66,26 @@ export class App extends Component {
   }
 
   allCheck(arr) {
-    if (arr[0] == 'allC' && this.state.curcat == 'allC'){
+    let colors = []
+    let states = []
+    let result = this.state.itemsAll
+    if (!arr[0] && !this.state.curcat){
+      return
+    }
+    if (arr === 'del'){
+      console.log(4)
+      this.setState({fil: [this.state.curcat]})
+      result = result.filter(el => (
+        el.cat === this.state.curcat || catua[catru.indexOf(el.cat)] === this.state.curcat
+      ))
+      this.setState({items: result})
+      this.setState({curcol: ''})
       return
     }
     this.setState({fil: arr})
     this.setState({y: true})
-    let colors = []
-    let result = this.state.itemsAll
     this.setState({curcat: arr[0]})
+    console.log(arr,this.state.curcat)
 
     if (arr[0]){
       result = result.filter(el => (
@@ -89,9 +99,22 @@ export class App extends Component {
         colors.push(el.col)
       }
     })
+    result.forEach(el => {
+      if (!states.includes(el.sex) && el.sex){
+        states.push(el.sex)
+      }
+    })
     this.setState({colors: colors})
+    this.setState({states: states})
     console.log(colors)
-    if (arr[2]){
+    console.log(states)
+    if (arr[1] && arr[0]){
+      result = result.filter(el => (
+        el.sex === arr[1]
+      ))
+      this.setState({curstate: arr[1]})
+    }
+    if (arr[2] && arr[0]){
       result = result.filter(el => (
         el.col === arr[2]
       ))
@@ -108,6 +131,7 @@ export class App extends Component {
     console.log(p)
     if (p == 'ru'){
       this.setState({lang: Ru})
+      this.setState({states: statesl})
       this.setState({allcat: catru})
       this.setState({colors: col})
       if (this.state.curcat !== 'allC'){
@@ -118,6 +142,7 @@ export class App extends Component {
       }
     } else {
       this.setState({lang: Ua})
+      this.setState({states: stateslua})
       this.setState({allcat: catua})
       this.setState({colors: colua})
       if (this.state.curcat !== 'allC'){
@@ -144,38 +169,39 @@ export class App extends Component {
     this.setState({search: text})
   }
 
-  addItem(item){
-    let isIn = false
-    let arr = [...this.state.curitems, item]
-    this.setState({curitems: [...this.state.curitems, item]})
+  addItem(item) {
+    let is = false
+    if (this.state.curitems.length === 0){
+      item.cout = 1
+      this.setState({curitems: [...this.state.curitems, item]})
+    }
     this.state.curitems.forEach(el => {
-      if (el === item){
-        isIn = true
+      if (el.idu === item.idu){
+        let arr = []
+        arr = this.state.curitems.map(el => {
+          if (el.idu === item.idu){
+            item.cout = 0
+            return item
+          }
+          return el
+        })
+        console.log(arr)
+        this.setState({curitems: [...arr.filter(i => (i.idu !== item.idu))]})
+        is = true
+      } else {
+        if (!is){
+          item.cout = 1
+          this.setState({curitems: [...this.state.curitems, item]})
+        }
       }
     })
-    if (isIn) {
-      this.setState({curitems: this.state.curitems.filter(el => (
-        el !== item
-      ))})
-    }
   }
 
   delitem(item){
-    item.selected = false
-    this.state.curitems.forEach(el => {
-      if (el.id === item && el.col === item && el.title === item && el.cout === item){
-        item.selected = false
-      }
-    })
-    let arr = [...this.state.curitems.filter(el => (
-      el !== item
-    ))]
-    this.setState({curitems: arr})
-    console.log(arr)
+    return this.state.curitems.filter(el => (el !== item))
   }
 
   setOpen(){
-
     this.setState({open: !this.state.open})
   }
 }

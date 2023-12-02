@@ -13,8 +13,7 @@ export default function Item(props) {
     let [text, setText] = useState('')
     let sel = <IoMdClose className='scale-150'/>
     let unsel = <RiShoppingBasket2Fill className='scale-150'/>
-
-    let url = '1.png'
+    
     const info = () => {
         setShow(!show)
         if (!show) {
@@ -25,25 +24,7 @@ export default function Item(props) {
     }
 
     const addItem = () => {
-      let isIn = false
-
-      props.curitems.forEach(el => {
-        if (el === props.item) {
-          isIn = true
-        }
-      })
-
-      console.log(props.curitems.includes(props.item))
-
-      if (isIn) {
-        props.item.selected = false
-      } else {
-        props.item.selected = true
-      }
-
-      setSelect(!select)
-      props.addItem(props.item)
-      console.log(props.item)
+      return
     }
 
     const title = () => {
@@ -53,7 +34,14 @@ export default function Item(props) {
         return props.item.titleUa
       }
     }
-
+    const sele = () => {
+      props.curitems.forEach(el => {
+        if (el.idu === props.item.idu){
+          return true
+        }
+      })
+      return false
+    }
   return (
     <div className='justify-between flex flex-col pb-2 mt-2 border-2 border-gray rounded-t-[10px] hover:border-black transition-all'>
         <div>
@@ -65,7 +53,7 @@ export default function Item(props) {
         <div onClick={() => info()} className='p-4 border border-black rounded-lg hover:bg-gray-800 transition-all' id='but'><AiOutlineInfo className='scale-150'/></div>
             <p className='my-auto font-bold text-center'>{props.item.price} UAH</p>
             <div className='flex'>
-              <div onClick={() => addItem()} className={`flex p-4 border border-black rounded-lg hover:bg-gray-800 transition-all ${props.item.selected && 'bg-gray-700'}`} id='but'>{props.item.selected ? sel : unsel}</div>
+              <div onClick={() => props.addItem(props.item)} className={`flex p-4 border border-black rounded-lg hover:bg-gray-800 transition-all ${props.item.cout >= 1 && 'bg-gray-700'}`} id='but'>{props.item.cout >= 1 ? sel : unsel}</div>
             </div>
         </div>
         {show ? <Info ci={false} langP={props.langP} text={text} colors={props.colors} item={props.item} show={show} info={info} addItem={props.addItem} curitems={props.curitems} lang={props.lang}/> : null}

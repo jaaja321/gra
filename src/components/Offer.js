@@ -124,7 +124,6 @@ export default function Offer(props) {
            console.log(b)
         });
         butt()
-    //emailjs.send('service_shmj5jd', 'template_hhsdgjs', 'wqe','JhbnlFkCmHseIbKJO')
     }
     let butt = () => {
       console.log(props.langP)
@@ -186,7 +185,7 @@ export default function Offer(props) {
                     <input type='checkbox' id='yes' className=' duration-300'></input>
                 </div>
                 <p className='text-center mb-1'>Общая цена без доставки: {total()}₴</p>
-                <button disabled={b !== 0} onClick={() => check()} className='cursor-pointer border border-black rounded-lg w-[40%] text-center mx-auto'>{but}</button>
+                <button disabled={b !== 0} onClick={() => check()} className='p-2 cursor-pointer border border-black rounded-lg w-[40%] text-center mx-auto hover:bg-gray-800 duration-150'>{but}</button>
             </div>
             </div>
             <div className='w-full overflow-y-auto border-t border-black sm:border-t sm:border-white'>

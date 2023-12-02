@@ -15,12 +15,13 @@ export class Nav extends Component {
     super(props)
     this.state = {
       fil: [],
-      open: false,
+      open: [0,0,0,0],
       ocol: false,
       ocat: false,
-      curcat: 'allC',
-      curstate: 'allG',
-      curcol: 'allCol',
+      osex: false,
+      curcat: '',
+      curstate: '',
+      curcol: '',
       colors: [
         {color: 'bg-black',
         sel: false},
@@ -68,11 +69,14 @@ export class Nav extends Component {
   }
   
   fil(i,n){
+    console.log(i)
     let arr = this.props.fil
-    arr[n] = i
-    if (i == 'del'){
-      arr = []
+    if (i === 'del'){
+      this.props.allCheck('del')
+      this.setState({fil: [this.props.curcat]})
+      return
     }
+    arr[n] = i
     console.log(arr)
     this.setState({fil: arr})
     this.props.allCheck(arr)
@@ -103,6 +107,25 @@ export class Nav extends Component {
         
       </div>
 
+      <div className={`absolute text-center bg-white w-full h-[100vh] top-[0vh] transition-all duration-300 ${this.state.osex ? "translate-x-[0%]" : "translate-x-[-100%]"} overflow-hidden`}>
+        <div onClick={() => this.setState({osex: !this.state.osex})} className={`justify-center duration-100 mx-2 my-1 flex border border-black p-1 sm:hover:bg-gray-700`}>
+          <IoMdClose size={30} className=''/>
+          <span className={`font-bold my-auto`}>Назад</span>
+        </div>
+        <div onClick={() => this.fil('',1)} className={`justify-center duration-100 mx-2 my-1 flex border border-black p-1 ${!this.state.fil[1] ? "bg-gray-700" : ""} sm:hover:bg-gray-700`}>
+          <IoColorPaletteOutline size={30} className=''/>
+          <span className={`font-bold my-auto`}>Все</span>
+        </div>
+        {this.props.states.map((el) => (
+                  <div className='mx-2 my-1'>
+                  <div onClick={() => this.fil(el,1)} className={`flex border justify-center duration-100 border-black p-1 ${this.state.fil[1] === el ? "bg-gray-700" : ""} sm:hover:bg-gray-700`}>
+                    <span className={`font-bold my-auto`}>{el}</span>
+                  </div>
+                </div>
+        ))}
+        
+      </div>
+
       <div className={`absolute text-center bg-white w-full top-[0vh] transition-all duration-300 ${this.state.ocol ? "translate-x-[0%]" : "translate-x-[-100%]"} overflow-hidden`}>
         <div onClick={() => this.setState({ocol: !this.state.ocol})} className={`justify-center duration-100 mx-2 my-1 flex border border-black p-1 sm:hover:bg-gray-700`}>
           <IoMdClose size={30} className=''/>
@@ -125,6 +148,10 @@ export class Nav extends Component {
           <IoColorPaletteOutline size={30}/>
           <span className={`font-bold my-auto`}>{this.props.langP == 'ru' ? 'Категории' : 'Категорії'}</span>
         </div>
+      <div onClick={() => this.setState({osex: !this.state.osex})} className={`mx-2 my-1 flex border border-black p-1 ${this.state.osex ? "bg-gray-700" : ""} sm:hover:bg-gray-700`}>
+          <IoColorPaletteOutline size={30}/>
+          <span className={`font-bold my-auto`}>{this.props.langP == 'ru' ? 'Пол' : 'Стать'}</span>
+        </div>
       <div onClick={() => this.setState({ocol: !this.state.ocol})} className={`mx-2 my-1 flex border border-black p-1 ${this.state.ocol ? "bg-gray-700" : ""} sm:hover:bg-gray-700`}>
           <IoColorPaletteOutline size={30}/>
           <span className={`font-bold my-auto`}>{this.props.langP == 'ru' ? 'Цвет' : 'Колір'}</span>
@@ -133,9 +160,6 @@ export class Nav extends Component {
           <IoColorPaletteOutline size={30}/>
           <span className={`font-bold my-auto`}>{this.props.langP == 'ru' ? 'Удалить фильтры' : 'Видалити фільтри'}</span>
         </div>
-
-
-
         </div>
       </nav>
     )

@@ -86,6 +86,7 @@ export default function Info(props) {
             <li><span className='text-red-800'>{props.lang.col}:</span> {props.item.col}</li>
             <li><span className='text-red-800'>{props.lang.isIn}:</span> {props.item.isin}</li>
             <li><span className='text-red-800'>{props.lang.id}:</span> {props.item.id}</li>
+            <li><span className='text-red-800'>{props.lang.id}:</span> {props.item.cout}</li>
           </ul>
           <p className='font-bold mx-auto'>{props.lang.price}: {props.item.price} UAH</p>
           <p onClick={() => addItem(props.item)} className={`flex text-center w-[60%] mx-auto justify-center p-4 border border-black rounded-lg hover:bg-gray-800 transition-all ${select && 'bg-gray-700'}`}><span className={`mx-2 font-bold`}>{`${!select ? 'Добавить в корзину' : 'Убрать из корзины'}`}</span></p>

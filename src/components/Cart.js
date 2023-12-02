@@ -17,11 +17,11 @@ export class Cart extends Component {
           <div onClick={() => this.Show()} className={`flex text-center w-[60%] mx-auto justify-center p-4 border border-black rounded-lg hover:bg-gray-800 transition-all`}>Оформить заказ</div>
             <div className='grid grid-cols-1 md:grid-cols-2 justify-around mr-[2%] mt-2 '>
               {this.props.curitems.map(el => (
-                <CartItem ammo={this.props.ammo} langP={this.props.langP} lang={this.props.lang} className='z-[80]' item={el} delitem={this.props.delitem} addItem={this.props.addItem} curitems={this.props.curitems}/>
+                <CartItem curcout={this.props.curcout} ammo={this.props.ammo} langP={this.props.langP} lang={this.props.lang} className='z-[80]' item={el} delitem={this.props.delitem} addItem={this.props.addItem} curitems={this.props.curitems}/>
               ))}
             </div>
           </div> : <div className='h-[10vh] flex'><p className='font-bold my-auto'>Вы не выбрали товар</p></div>}
-          {this.state.show ? <Offer langP={this.props.langP} Show={this.Show} curitems={this.props.curitems}/> : null}
+          {this.state.show ? <Offer curcout={this.props.curcout} langP={this.props.langP} Show={this.Show} curitems={this.props.curitems}/> : null}
       </div>
     )
   }

@@ -3,9 +3,11 @@ import Info from './Info'
 import {IoMdClose} from 'react-icons/io'
 import {AiOutlineInfo} from 'react-icons/ai'
 import { FaPlus,FaMinus } from "react-icons/fa";
-function CartItem(props) {
-    let [show, setShow] = useState(false)
+import axios from 'axios'
 
+async function CartItem(props) {
+    let [show, setShow] = useState(false)
+    let [result, setResult] = useState('')
     const info = () => {
         setShow(!show)
         if (!show) {
@@ -14,7 +16,13 @@ function CartItem(props) {
             document.body.style.overflow = "auto"
         }
     }
-    
+    const data = await axios.post('https://pay.fondy.eu/static_common/v1/checkout/ipsp.js')
+    let api = 'https://pay.fondy.eu/static_common/v1/checkout/ipsp.js'
+    const pay = () => {
+        axios.get(api).then((res) => {
+            setResult({res})
+        })
+    }
   return (
     <div className='w-[100%] m-1 flex justify-center border border-gray rounded-[10px] hover:border-black transition-all'>
         {show ? <Info ci={true} lang={props.lang} className='z-[99]' item={props.item} show={show} info={info} addItem={props.addItem} curitems={props.curitems}/> : null}
@@ -24,12 +32,12 @@ function CartItem(props) {
             <p className='mx-auto font-bold'>{props.item.price}$</p>
         </div>
         <div className='my-auto mr-2'>
-            <div onClick={() => props.ammo('+',props.item)} className='m-1 p-3 border border-black rounded-lg hover:bg-gray-800 transition-all'><FaPlus className='scale-[1.5]'/></div>
+            <div onClick={() => pay()} className='m-1 p-3 border border-black rounded-lg hover:bg-gray-800 transition-all'><FaPlus className='scale-[1.5]'/></div>
             <p>{props.item.cout}</p>
             <button onClick={() => props.ammo('-',props.item)} disabled={props.item.cout === 1} className='m-1 p-3 border border-black rounded-lg hover:bg-gray-800 transition-all'><FaMinus className='scale-[1.5]'/></button>
         </div>
         <div className='my-auto mr-2'>
-            <div onClick={() => props.delitem(props.item)} className='m-1 p-3 border border-black rounded-lg hover:bg-gray-800 transition-all'><IoMdClose className='scale-[2]'/></div>
+            <div onClick={() => props.addItem(props.item)} className='m-1 p-3 border border-black rounded-lg hover:bg-gray-800 transition-all'><IoMdClose className='scale-[2]'/></div>
             <div onClick={() => info()} className='m-1 p-3 border border-black rounded-lg hover:bg-gray-800 transition-all'><AiOutlineInfo className='scale-[2]'/></div>
         </div>
     </div>
